@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefWidth="1100"
+	xmlns="http://javafx.com/javafx/23.0.1"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="fugyunfoldercreatorfx.MainFrameController">
+	<!-- 上部パネル -->
+	<top>
+		<VBox spacing="10.0" style="-fx-padding: 20;"
+			BorderPane.alignment="CENTER">
+			<VBox spacing="10">
+				<Label
+					style="-fx-font-family: Yu Gothic UI; -fx-font-size: 16;"
+					text="フォルダを作成したい場合、フォルダパス入力後、【フォルダ作成】ボタンを押下して下さい。" />
+				<Label
+					style="-fx-font-family: Yu Gothic UI; -fx-font-size: 16;"
+					text="フォルダを削除したい場合、フォルダパス入力後、【フォルダ削除】ボタンを押下して下さい。" />
+				<Label
+					style="-fx-font-family: Yu Gothic UI; -fx-font-size: 16;"
+					text="複数のフォルダを削除したい場合、フォルダパス入力後、【フォルダ全削除】ボタンを押下して下さい。" />
+				<Label
+					style="-fx-font-family: Yu Gothic UI; -fx-font-size: 16;"
+					text="1行最大240文字がパスとして入力可能で、1パスとします。（改行することで、複数のパスを入力出来ます。）" />
+			</VBox>
+
+			<!-- ボタンパネル -->
+			<HBox spacing="20" style="-fx-padding: 10 0 0 0;"
+				BorderPane.alignment="CENTER">
+				<Button fx:id="folderCreateButton" minWidth="150"
+					onAction="#handleFolderCreate" prefHeight="70" prefWidth="150"
+					style="-fx-font-family: Yu Gothic UI; -fx-font-size: 18; -fx-font-weight: bold;"
+					text="フォルダ作成&#10;（F1）" textAlignment="CENTER" />
+				<Button fx:id="folderDeleteButton" minWidth="150"
+					onAction="#handleFolderDelete" prefHeight="70" prefWidth="150"
+					style="-fx-font-family: Yu Gothic UI; -fx-font-size: 18; -fx-font-weight: bold;"
+					text="フォルダ削除&#10;（F2）" textAlignment="CENTER" />
+				<Button fx:id="folderAllDeleteButton" minWidth="150"
+					onAction="#handleFolderAllDelete" prefHeight="70" prefWidth="150"
+					style="-fx-font-family: Yu Gothic UI; -fx-font-size: 18; -fx-font-weight: bold;"
+					text="フォルダ全削除&#10;（F3）" textAlignment="CENTER" />
+				<Button fx:id="pathClearButton" minWidth="200"
+					onAction="#handlePathClear" prefHeight="70" prefWidth="200"
+					style="-fx-font-family: Yu Gothic UI; -fx-font-size: 18; -fx-font-weight: bold;"
+					text="入力したパスをクリア&#10;（F4）" textAlignment="CENTER" />
+			</HBox>
+		</VBox>
+	</top>
+
+	<!-- パステキストエリア -->
+	<center>
+		<TextArea fx:id="pathTextArea"
+			style="-fx-font-family: Yu Gothic UI; -fx-font-size: 24; -fx-control-inner-background: #e6e6fa;"
+			wrapText="false">
+
+			<contextMenu>
+				<ContextMenu fx:id="pathTextAreaContextMenu">
+					<items>
+						<MenuItem fx:id="undoMenuItem" onAction="#handleUndo"
+							style="-fx-font-family: Yu Gothic UI; -fx-font-size: 14px;"
+							text="元に戻す">
+							<accelerator>
+								<KeyCodeCombination alt="UP" code="Z"
+									control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+							</accelerator>
+						</MenuItem>
+
+						<MenuItem fx:id="redoMenuItem" onAction="#handleRedo"
+							style="-fx-font-family: Yu Gothic UI; -fx-font-size: 14px;"
+							text="やり直し">
+							<accelerator>
+								<KeyCodeCombination alt="UP" code="Y"
+									control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+							</accelerator>
+						</MenuItem>
+
+						<SeparatorMenuItem mnemonicParsing="false" />
+
+						<MenuItem onAction="#handleCut"
+							style="-fx-font-family: Yu Gothic UI; -fx-font-size: 14px;"
+							text="切り取り">
+							<accelerator>
+								<KeyCodeCombination alt="UP" code="X"
+									control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+							</accelerator>
+						</MenuItem>
+
+						<MenuItem onAction="#handleCopy"
+							style="-fx-font-family: Yu Gothic UI; -fx-font-size: 14px;"
+							text="コピー">
+							<accelerator>
+								<KeyCodeCombination alt="UP" code="C"
+									control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+							</accelerator>
+						</MenuItem>
+
+						<MenuItem onAction="#handlePaste"
+							style="-fx-font-family: Yu Gothic UI; -fx-font-size: 14px;"
+							text="貼り付け">
+							<accelerator>
+								<KeyCodeCombination alt="UP" code="V"
+									control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+							</accelerator>
+						</MenuItem>
+
+						<MenuItem onAction="#handleDelete"
+							style="-fx-font-family: Yu Gothic UI; -fx-font-size: 14px;"
+							text="削除">
+							<accelerator>
+								<KeyCodeCombination alt="UP" code="DELETE"
+									control="UP" meta="UP" shift="UP" shortcut="UP" />
+							</accelerator>
+						</MenuItem>
+
+						<SeparatorMenuItem mnemonicParsing="false" />
+
+						<MenuItem onAction="#handleSelectLine"
+							style="-fx-font-family: Yu Gothic UI; -fx-font-size: 14px;"
+							text="行選択">
+							<accelerator>
+								<KeyCodeCombination alt="UP" code="E"
+									control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+							</accelerator>
+						</MenuItem>
+
+						<MenuItem onAction="#handleSelectAll"
+							style="-fx-font-family: Yu Gothic UI; -fx-font-size: 14px;"
+							text="全選択">
+							<accelerator>
+								<KeyCodeCombination alt="UP" code="A"
+									control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+							</accelerator>
+						</MenuItem>
+
+						<SeparatorMenuItem mnemonicParsing="false" />
+
+						<MenuItem onAction="#handleOpenFolder"
+							style="-fx-font-family: Yu Gothic UI; -fx-font-size: 14px;"
+							text="選択行のフォルダを開く">
+							<accelerator>
+								<KeyCodeCombination alt="UP" code="O"
+									control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+							</accelerator>
+						</MenuItem>
+					</items>
+				</ContextMenu>
+			</contextMenu>
+
+			<BorderPane.margin>
+				<Insets bottom="20.0" left="20.0" right="20.0" />
+			</BorderPane.margin>
+		</TextArea>
+	</center>
+</BorderPane>
